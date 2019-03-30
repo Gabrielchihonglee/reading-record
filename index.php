@@ -1,3 +1,6 @@
+<?php
+include_once("functions.php");
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,14 +11,14 @@
 <body>
 	<header>
 		<div class="sitename">
-			<a href="index.html">My Reading Record</a>
+			<a href="index.php">My Reading Record</a>
 		</div>
 		<div class="search">
 			<span class="search-input"><input type="text" name="search" placeholder="search">
 		</div>
 	</header>
 	<div class="container">
-		<a class="add-record" href="add.html">Add record</a>
+		<a class="add-record" href="add.php">Add record</a>
 		<table>
 			<thead>
 				<tr>
@@ -29,51 +32,43 @@
 				</tr>
 			</thead>
 			<tbody>
+				<?php
+				$records = listRecords();
+				foreach ($records as $record) {
+				?>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td class="rating"><img src="img/3stars.png"></td>
-					<td class="recommend"><img src="img/cross.png"</td>
-					<td></td>
+					<td><?= $record[0]; ?></td>
+					<td><?= $record[1]; ?></td>
+					<td><?= $record[2]; ?></td>
+					<td><?= $record[3]; ?></td>
+					<td class="rating">
+						<?php if ($record[4] != -1) {?>
+						<span class="rating-num"><?= $record[4]; ?></span>
+						<div class="stars star<?= $record[4]; ?>"></div>
+						<?php } ?>
+					</td>
+					<td class="recommend">
+					<?php
+					switch ($record[5]) {
+						case 1:
+							echo '<img src="img/tick.png">';
+							break;
+						case 0:
+							echo '<img src="img/cross.png">';
+							break;
+						default:
+							break;
+					}
+					?>
+					</td>
+					<td>
+						<a href="edit.php?id=<?= $record[0]; ?>">Edit</a>
+						<a href="delete.php?id=<?= $record[0]; ?>">Delete</a
+					</td>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				<?php
+				}
+				?>
 			</tbody>
 			<tfoot>
 				<tr>

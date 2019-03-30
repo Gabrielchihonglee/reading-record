@@ -1,3 +1,9 @@
+<?php
+include_once("functions.php");
+if (isset($_POST["submit"])) {
+	addRecord($_POST["name"], $_POST["genre"], $_POST["reflection"], $_POST["rating"], $_POST["recommend"]);
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +14,7 @@
 <body>
 	<header>
 		<div class="sitename">
-			<a href="index.html">My Reading Record</a>
+			<a href="index.php">My Reading Record</a>
 		</div>
 		<div class="search">
 			<span class="search-input"><input type="text" name="search" placeholder="search">
@@ -17,11 +23,11 @@
 	<div class="container">
 		<h1>Add record</h1>
 		<div class="box">
-			<form>
+			<form method="post">
 				<label for="name">Book name</label>
 			  <input type="text" name="name" id="name">
 			  <label for="genre">Genre</label>
-				<select>
+				<select name="genre" id="genre">
 				  <option value=""></option>
 					<option value="Action and adventure">Action and adventure</option>
 					<option value="Art">Art</option>
@@ -54,8 +60,9 @@
 				<label for="reflection">My reflection</label>
 			  <textarea name="reflection" id="reflection" cols="70" rows="6"></textarea>
 			  <label for="rating">Rating</label>
-				<select>
-				  <option value=""></option>
+				<select name="rating" id="rating">
+				  <option value="-1"></option>
+				  <option value="0">0</option>
 				  <option value="1">1</option>
 				  <option value="2">2</option>
 				  <option value="3">3</option>
@@ -63,12 +70,12 @@
 				  <option value="5">5</option>
 				</select>
 			  <label for="recommend">Recommended</label>
-				<select>
-				  <option value=""></option>
-				  <option value="true">Yes</option>
-				  <option value="false">No</option>
+				<select name="recommend" id="recommend">
+				  <option value="-1"></option>
+				  <option value="1">Yes</option>
+				  <option value="0">No</option>
 				</select>
-			  <input type="submit" value="Submit">
+			  <input type="submit" name="submit" value="Submit">
 			</form>
 		</div>
 	</div>

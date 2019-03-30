@@ -157,9 +157,72 @@ thead th, tfoot td {
 	font-weight: 500;
 }
 
+tbody tr:hover {
+	background-color: #F4F4F4;
+}
+
 tbody td {
-	padding: 5px 8px;
+	padding: 10px;
 	vertical-align: middle;
+}
+
+tbody td:last-child {
+	width: 1px;
+	white-space:nowrap;
+}
+
+.rating-num {
+	display: inline-block;
+}
+
+.stars {
+	height: 14px;
+	width: 14px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: inline-block;
+}
+
+.star-1, .star0, .star1, .star2, .star3, .star4, .star5 {
+background-image: url("img/fullstar.png");
+}
+
+@media only screen and (min-width: 1000px) {
+  .rating-num {
+		display: none;
+  }
+
+	.stars {
+		width: 78px;
+	}
+
+	.star-1 {
+		background-image: url("img/-1stars.png");
+	}
+
+	.star0 {
+		background-image: url("img/0stars.png");
+	}
+
+	.star1 {
+		background-image: url("img/1stars.png");
+	}
+
+	.star2 {
+	background-image: url("img/2stars.png");
+	}
+
+	.star3 {
+	background-image: url("img/3stars.png");
+	}
+
+	.star4 {
+	background-image: url("img/4stars.png");
+	}
+
+	.star5 {
+	background-image: url("img/5stars.png");
+	}
 }
 
 .rating, .recommend {
