@@ -22,6 +22,15 @@ header {
 	line-height: 60px;
 }
 
+.sitename a {
+	color: #333333;
+	text-decoration: none;
+}
+
+.sitename a:hover {
+	color: #707070;
+}
+
 .search {
 	display: inline-block;
 	float: right;
@@ -33,15 +42,65 @@ header {
 	padding: 0 16px;
 	border-left: 1px solid #DDDDDD;
 	border-right: 1px solid #DDDDDD;
+	width: 100px;
+}
+
+@media only screen and (min-width: 700px) {
+	.search-input input {
+		width: 220px;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+	.search-input input {
+		width: 320px;
+	}
+}
+
+@media only screen and (min-width: 1300px) {
+	.search-input input {
+		width: 400px;
+	}
 }
 
 .search-input input:focus {
 	outline: none;
 }
 
+.search-input input:hover, .search-input input:focus {
+	background-color: #F4F4F4;
+}
+
 .container {
 	padding-left: 40px;
 	padding-right: 40px;
+}
+
+@media only screen and (min-width: 700px) {
+  .container {
+    padding-left: 70px;
+		padding-right: 70px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .container {
+    padding-left: 100px;
+		padding-right: 100px;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  .container {
+    padding-left: 160px;
+		padding-right: 160px;
+  }
+}
+
+h1 {
+	margin: 40px 0 24px;
+	font-size: 30px;
+	font-weight: 500;
 }
 
 .add-record {
@@ -56,6 +115,19 @@ header {
 
 .add-record:hover {
 	background-image: linear-gradient(to right, #1263df, #355ee2, #4d57e3, #6150e3, #7446e2);
+}
+
+.box {
+	display: block;
+	background-color: #FFFFFF;
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.1);
+	padding: 20px 30px;
+}
+
+@media only screen and (min-width: 1300px) {
+  .box {
+		padding: 40px;
+  }
 }
 
 table {
@@ -102,6 +174,57 @@ tbody td {
 .recommend img {
 	height: 14px;
 	width: auto;
+}
+
+form label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+form input[type=text], form select {
+	display: block;
+	padding: 5px 7px;
+	height: 34px;
+	margin-bottom: 20px;
+	width: 200px;
+	border: 1px solid #BBBBBB;
+}
+
+form input[type=text] {
+	height: 22px;
+	padding: 5px 10px;
+	width: 180px;
+}
+
+form textarea {
+	max-width: 100%;
+	max-width: calc(100% - 14px);
+	padding: 5px 7px;
+	border: 1px solid #BBBBBB;
+	margin-bottom: 20px;
+}
+
+form input[type=submit] {
+		background-image: linear-gradient(to right, #1471ff, #3c6aff, #5763ff, #6d59ff, #824eff);
+		display: inline-block;
+		padding: 12px 20px;
+		color: #FFFFFF;
+		text-decoration: none;
+		border: none;
+		margin-top: 20px;
+		cursor: pointer;
+		font-weight: 500;
+		font-size: 16px;
+}
+
+.rating-btn {
+	margin-bottom: 20px;
+}
+
+.rating-btn img {
+	height: 26px;
+	width: auto;
+	cursor: pointer;
 }
 
 footer {
