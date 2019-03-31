@@ -1,7 +1,35 @@
 <?php
 include_once("functions.php");
 if (isset($_POST["submit"])) {
-	addRecord($_POST["name"], $_POST["genre"], $_POST["reflection"], $_POST["rating"], $_POST["recommend"]);
+	// form validation
+	$haveerror = false;
+	$errormsg = "";
+	if (empty($_POST["name"])) {
+		$haveerror = true;
+		$errormsg .= "The 'Book name' field must be filled.<br>";
+	}
+	if (!empty($_POST["reflection"]) && strlen($_POST["reflection"]) > 600) {
+		$haveerror = true;
+		$errormsg .= "The 'My reflection' field should not have more than 600 characters, " . strlen($_POST['reflection']) . " currently.<br>";
+	}
+	if (!empty($_POST["rating"]) && (($_POST["rating"] < -1) || ($_POST["rating"] > 5))) {
+		$haveerror = true;
+		if ($_POST["rating"] == -1) {
+			$ratingtext = "empty";
+		} else {
+			$ratingtext = $_POST["rating"];
+		}
+		$errormsg .= "The 'Rating' field should be empty or within 0 - 5, {$ratingtext} currently.<br>";
+	}
+	if (!empty($_POST["recommend"]) && (($_POST["recommend"] < -1) || ($_POST["recommend"] > 1))) {
+		$haveerror = true;
+		$errormsg .= "The 'Recommended' field should be empty or yes or no.<br>";
+	}
+
+	// if no error, add record to database
+	if (!$haveerror) {
+		addRecord($_POST["name"], $_POST["genre"], $_POST["reflection"], $_POST["rating"], $_POST["recommend"]);
+	}
 }
 ?>
 <!doctype html>
@@ -22,58 +50,73 @@ if (isset($_POST["submit"])) {
 	</header>
 	<div class="container">
 		<h1>Add record</h1>
+		<?php
+		if (!empty($errormsg)) {
+			echo '<div class="error-msg">'.$errormsg.'</div>';
+		}
+		?>
 		<div class="box">
+			<a href="index.php" class="back-link">< Back</a>
+			<span class="form-reminder">Fields mared with * must be filled in.</span>
 			<form method="post">
-				<label for="name">Book name</label>
-			  <input type="text" name="name" id="name">
+				<label for="name">Book name *</label>
+			  <input type="text" name="name" id="name" value="<?php
+				if (isset($_POST["name"])) {
+					echo $_POST["name"];
+				}
+				?>">
 			  <label for="genre">Genre</label>
 				<select name="genre" id="genre">
 				  <option value=""></option>
-					<option value="Action and adventure">Action and adventure</option>
-					<option value="Art">Art</option>
-					<option value="Autobiography">Autobiography</option>
-					<option value="Biography">Biography</option>
-					<option value="Book review">Book review</option>
-					<option value="Cookbook">Cookbook</option>
-					<option value="Comic book">Comic book</option>
-					<option value="Diary">Diary</option>
-					<option value="Dictionary">Dictionary</option>
-					<option value="Crime">Crime</option>
-					<option value="Encyclopedia">Encyclopedia</option>
-					<option value="Drama">Drama</option>
-					<option value="Fairytale">Fairytale</option>
-					<option value="Health">Health</option>
-					<option value="Fantasy">Fantasy</option>
-					<option value="History">History</option>
-					<option value="Journal">Journal</option>
-					<option value="Math">Math</option>
-					<option value="Horror">Horror</option>
-					<option value="Mystery">Mystery</option>
-					<option value="Textbook">Textbook</option>
-					<option value="Poetry">Poetry</option>
-					<option value="Review">Review</option>
-					<option value="Science">Science</option>
-					<option value="Romance">Romance</option>
-					<option value="Travel">Travel</option>
-					<option value="Thriller">Thriller</option>
+					<option value="Action and adventure"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Action and adventure") { echo ' selected'; } ?>>Action and adventure</option>
+					<option value="Art"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Art") { echo ' selected'; } ?>>Art</option>
+					<option value="Autobiography"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Autobiography") { echo ' selected'; } ?>>Autobiography</option>
+					<option value="Biography"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Biography") { echo ' selected'; } ?>>Biography</option>
+					<option value="Book review"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Book review") { echo ' selected'; } ?>>Book review</option>
+					<option value="Cookbook"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Cookbook") { echo ' selected'; } ?>>Cookbook</option>
+					<option value="Comic book"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Comic book") { echo ' selected'; } ?>>Comic book</option>
+					<option value="Diary"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Diary") { echo ' selected'; } ?>>Diary</option>
+					<option value="Dictionary"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Dictionary") { echo ' selected'; } ?>>Dictionary</option>
+					<option value="Crime"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Crime") { echo ' selected'; } ?>>Crime</option>
+					<option value="Encyclopedia"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Encyclopedia") { echo ' selected'; } ?>>Encyclopedia</option>
+					<option value="Drama"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Drama") { echo ' selected'; } ?>>Drama</option>
+					<option value="Fairytale"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Fairytale") { echo ' selected'; } ?>>Fairytale</option>
+					<option value="Health"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Health") { echo ' selected'; } ?>>Health</option>
+					<option value="Fantasy"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Fantasy") { echo ' selected'; } ?>>Fantasy</option>
+					<option value="History"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "History") { echo ' selected'; } ?>>History</option>
+					<option value="Journal"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Journal") { echo ' selected'; } ?>>Journal</option>
+					<option value="Math"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Math") { echo ' selected'; } ?>>Math</option>
+					<option value="Horror"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Horror") { echo ' selected'; } ?>>Horror</option>
+					<option value="Mystery"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Mystery") { echo ' selected'; } ?>>Mystery</option>
+					<option value="Textbook"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Textbook") { echo ' selected'; } ?>>Textbook</option>
+					<option value="Poetry"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Poetry") { echo ' selected'; } ?>>Poetry</option>
+					<option value="Review"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Review") { echo ' selected'; } ?>>Review</option>
+					<option value="Science"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Science") { echo ' selected'; } ?>>Science</option>
+					<option value="Romance"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Romance") { echo ' selected'; } ?>>Romance</option>
+					<option value="Travel"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Travel") { echo ' selected'; } ?>>Travel</option>
+					<option value="Thriller"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Thriller") { echo ' selected'; } ?>>Thriller</option>
 				</select>
 				<label for="reflection">My reflection</label>
-			  <textarea name="reflection" id="reflection" cols="70" rows="6"></textarea>
+			  <textarea name="reflection" id="reflection" cols="70" rows="6"><?php
+				if (isset($_POST["reflection"])) {
+					echo $_POST["reflection"];
+				}
+				?></textarea>
 			  <label for="rating">Rating</label>
 				<select name="rating" id="rating">
-				  <option value="-1"></option>
-				  <option value="0">0</option>
-				  <option value="1">1</option>
-				  <option value="2">2</option>
-				  <option value="3">3</option>
-				  <option value="4">4</option>
-				  <option value="5">5</option>
+				  <option value="-1"<?php if (isset($_POST["rating"]) && $_POST["rating"] == -1) { echo ' selected'; } ?>></option>
+				  <option value="0"<?php if (isset($_POST["rating"]) && $_POST["rating"] == 0) { echo ' selected'; } ?>>0</option>
+				  <option value="1"<?php if (isset($_POST["rating"]) && $_POST["rating"] == 1) { echo ' selected'; } ?>>1</option>
+				  <option value="2"<?php if (isset($_POST["rating"]) && $_POST["rating"] == 2) { echo ' selected'; } ?>>2</option>
+				  <option value="3"<?php if (isset($_POST["rating"]) && $_POST["rating"] == 3) { echo ' selected'; } ?>>3</option>
+				  <option value="4"<?php if (isset($_POST["rating"]) && $_POST["rating"] == 4) { echo ' selected'; } ?>>4</option>
+				  <option value="5"<?php if (isset($_POST["rating"]) && $_POST["rating"] == 5) { echo ' selected'; } ?>>5</option>
 				</select>
 			  <label for="recommend">Recommended</label>
 				<select name="recommend" id="recommend">
-				  <option value="-1"></option>
-				  <option value="1">Yes</option>
-				  <option value="0">No</option>
+				  <option value="-1"<?php if (isset($_POST["recommend"]) && $_POST["recommend"] == -1) { echo ' selected'; } ?>></option>
+				  <option value="1"<?php if (isset($_POST["recommend"]) && $_POST["recommend"] == 1) { echo ' selected'; } ?>>Yes</option>
+				  <option value="0"<?php if (isset($_POST["recommend"]) && $_POST["recommend"] == 0) { echo ' selected'; } ?>>No</option>
 				</select>
 			  <input type="submit" name="submit" value="Submit">
 			</form>

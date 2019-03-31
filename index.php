@@ -19,6 +19,12 @@ include_once("functions.php");
 	</header>
 	<div class="container">
 		<a class="add-record" href="add.php">Add record</a>
+		<?php
+		$records = listRecords();
+		if (empty($records)) {
+			echo '<div class="no-record-msg">No reading records found.</div>';
+		} else {
+		?>
 		<table>
 			<thead>
 				<tr>
@@ -33,7 +39,6 @@ include_once("functions.php");
 			</thead>
 			<tbody>
 				<?php
-				$records = listRecords();
 				foreach ($records as $record) {
 				?>
 				<tr>
@@ -82,6 +87,9 @@ include_once("functions.php");
 				</tr>
 			</tfoot>
 		</table>
+		<?php
+		}
+		?>
 	</div>
 	<footer>
 		<div class="container">Created by Gabriel (Lee Chi Hong) for SCC130 Term 3 Assessment @ Lancaster University.</div>

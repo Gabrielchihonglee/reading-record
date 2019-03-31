@@ -130,6 +130,17 @@ h1 {
   }
 }
 
+.back-link {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.error-msg {
+	padding: 10px 14px;
+	background-color: #FF6666;
+	color: #FFFFFF;
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -237,6 +248,14 @@ background-image: url("img/fullstar.png");
 .recommend img {
 	height: 14px;
 	width: auto;
+}
+
+.form-reminder {
+	font-size: 14px;
+}
+
+form {
+	margin-top: 10px;
 }
 
 form label {

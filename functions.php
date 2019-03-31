@@ -17,8 +17,25 @@ function addRecord($name, $genre, $reflection, $rating, $recommend) {
 
 function listRecords() {
 	$conn = connectDb();
-	$query = "SELECT * FROM readings";
+	$query = "SELECT * FROM `readings`";
 	$result = mysqli_query($conn, $query);
 	return mysqli_fetch_all($result);
+}
+
+function getRecord($id) {
+	$conn = connectDb();
+	$query = "SELECT * FROM `readings` WHERE `id` = '{$id}'";
+	$result = mysqli_query($conn, $query);
+	return mysqli_fetch_all($result);
+}
+
+function delRecord($id) {
+	$conn = connectDb();
+	$query = "DELETE FROM `readings` WHERE `id` = '{$id}'";
+	$result = mysqli_query($conn, $query);
+	if (mysqli_query($conn, $query)) {
+      echo '<meta http-equiv="refresh" content="0; url=index.php" />';
+      die();
+  }
 }
 ?>
