@@ -13,6 +13,12 @@ include_once("functions.php");
 		<div class="sitename">
 			<a href="index.php">My Reading Record</a>
 		</div>
+		<nav>
+			<ul>
+				<li><b><a href="index.php">Home</a></b></li>
+				<li><a href="stats.php">Stats</a></li>
+			</ul>
+		</nav>
 		<div class="search">
 			<span class="search-input"><input type="text" name="search" placeholder="search">
 		</div>

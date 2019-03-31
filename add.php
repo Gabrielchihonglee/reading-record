@@ -44,6 +44,12 @@ if (isset($_POST["submit"])) {
 		<div class="sitename">
 			<a href="index.php">My Reading Record</a>
 		</div>
+		<nav>
+			<ul>
+				<li><a href="index.php">Home</a></li>
+				<li><a href="stats.php">Stats</a></li>
+			</ul>
+		</nav>
 		<div class="search">
 			<span class="search-input"><input type="text" name="search" placeholder="search">
 		</div>

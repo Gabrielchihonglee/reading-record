@@ -38,4 +38,11 @@ function delRecord($id) {
       die();
   }
 }
+
+function getRatingData() {
+	$conn = connectDb();
+	$query = "SELECT rating, COUNT('rating') FROM `readings` GROUP BY rating";
+	$result = mysqli_query($conn, $query);
+	return mysqli_fetch_all($result);
+}
 ?>

@@ -31,6 +31,35 @@ header {
 	color: #707070;
 }
 
+nav {
+	display: inline-block;
+	margin-top:-5px;
+}
+
+nav ul {
+	list-style-type: none;
+  padding-left: 0;
+  margin: 0 0 0 10px;
+}
+
+nav ul li {
+	display: inline-block;
+	margin-left: 15px;
+}
+
+nav ul a {
+	text-decoration: none;
+	color: #0000EE;
+}
+
+nav ul a:hover {
+	text-decoration: underline;
+}
+
+b {
+	font-weight: 500;
+}
+
 .search {
 	display: inline-block;
 	float: right;
@@ -180,6 +209,15 @@ tbody td {
 tbody td:last-child {
 	width: 1px;
 	white-space:nowrap;
+}
+
+tbody td:last-child a {
+	text-decoration: none;
+	color: #0000EE;
+}
+
+tbody td:last-child a:hover {
+	text-decoration: underline;
 }
 
 .rating-num {
