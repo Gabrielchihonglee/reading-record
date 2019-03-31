@@ -32,7 +32,10 @@ include_once("functions.php");
 		?>
 		<div class="box">
 			<a href="index.php" class="back-link">< Back</a>
-			<div id="chart_div"></div>
+			<div class="charts">
+				<div id="ratingChart"></div>
+				<div id="recommendChart"></div>
+			</div>
 		</div>
 	</div>
 	<footer>
@@ -56,19 +59,52 @@ include_once("functions.php");
 		$ratingdataprint = substr($ratingdataprint, 0, -2);;
 		?>
 		// Create the data table.
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Rating');
-		data.addColumn('number', '# given');
-		data.addRows([<?= $ratingdataprint ?>]);
-		var options = {
+		var ratingChartData = new google.visualization.DataTable();
+		ratingChartData.addColumn('string', 'Rating');
+		ratingChartData.addColumn('number', '# given');
+		ratingChartData.addRows([<?= $ratingdataprint ?>]);
+		var ratingChartOptions = {
 			'title': 'Ratings given',
-			width: 900,
-			height:600,
+			width: '100%',
+			height: 300,
   		colors: ['#b7cbff', '#a3bcff', '#8cabff', '#7096ff', '#5b87ff', '#4677fc', '#3269ff'],
 			pieSliceText: 'value'
 		};
-		var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-		chart.draw(data, options);
+		var ratingChart = new google.visualization.PieChart(document.getElementById('ratingChart'));
+		ratingChart.draw(ratingChartData, ratingChartOptions);
+
+		<?php
+		$recommenddata = getRecommendData();
+		$recommenddataprint = "";
+		foreach ($recommenddata as $data) {
+			switch ($data[0]) {
+				case -1:
+					$recommenddataprint .= "['I don\'t know',{$data[1]}], ";
+					break;
+				case 1:
+					$recommenddataprint .= "['Recommended',{$data[1]}], ";
+					break;
+				case 0:
+					$recommenddataprint .= "['Not recommended',{$data[1]}], ";
+					break;
+			}
+		}
+		$recommenddataprint = substr($recommenddataprint, 0, -2);;
+		?>
+		// Create the data table.
+		var recommendChartData = new google.visualization.DataTable();
+		recommendChartData.addColumn('string', 'Rating');
+		recommendChartData.addColumn('number', '# given');
+		recommendChartData.addRows([<?= $recommenddataprint ?>]);
+		var recommendChartOptions = {
+			'title': 'Recommendation',
+			width: '100%',
+			height: 300,
+  		colors: ['#b7cbff', '#8cabff','#5b87ff', '#3269ff'],
+			pieSliceText: 'value'
+		};
+		var recommendChart = new google.visualization.PieChart(document.getElementById('recommendChart'));
+		recommendChart.draw(recommendChartData, recommendChartOptions);
  	}
 	</script>
 </body>

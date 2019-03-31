@@ -34,7 +34,6 @@ include_once("functions.php");
 		<table>
 			<thead>
 				<tr>
-					<th>#</th>
 					<th>Book name</th>
 					<th>Genre</th>
 					<th>My reflection</th>
@@ -48,7 +47,6 @@ include_once("functions.php");
 				foreach ($records as $record) {
 				?>
 				<tr>
-					<td><?= $record[0]; ?></td>
 					<td><?= $record[1]; ?></td>
 					<td><?= $record[2]; ?></td>
 					<td><?= $record[3]; ?></td>
@@ -73,6 +71,7 @@ include_once("functions.php");
 					?>
 					</td>
 					<td>
+						<a href="view.php?id=<?= $record[0]; ?>">View</a>
 						<a href="edit.php?id=<?= $record[0]; ?>">Edit</a>
 						<a href="delete.php?id=<?= $record[0]; ?>">Delete</a
 					</td>
@@ -83,7 +82,6 @@ include_once("functions.php");
 			</tbody>
 			<tfoot>
 				<tr>
-					<td>#</td>
 					<td>Book Name</td>
 					<td>Genre</td>
 					<td>My Reflection</td>

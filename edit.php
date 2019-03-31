@@ -28,7 +28,7 @@ if (isset($_POST["submit"])) {
 
 	// if no error, add record to database
 	if (!$haveerror) {
-		addRecord($_POST["name"], $_POST["genre"], $_POST["reflection"], $_POST["rating"], $_POST["recommend"]);
+		editRecord($_POST["id"], $_POST["name"], $_POST["genre"], $_POST["reflection"], $_POST["rating"], $_POST["recommend"]);
 	}
 } else {
 	$record = getRecord($_GET["id"])[0];
@@ -67,6 +67,7 @@ if (isset($_POST["submit"])) {
 			<a href="index.php" class="back-link">< Back</a>
 			<span class="form-reminder">Fields mared with * must be filled in.</span>
 			<form method="post">
+				<input type="hidden" name="id" id="id" value="<?= $record[0] ?>">
 				<label for="name">Book name *</label>
 			  <input type="text" name="name" id="name" value="<?php
 				if (isset($_POST["name"])) {

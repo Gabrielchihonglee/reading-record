@@ -8,7 +8,7 @@ function connectDb() {
 
 function addRecord($name, $genre, $reflection, $rating, $recommend) {
 	$conn = connectDb();
-	$query = "INSERT INTO `readings` (`name`, `genre`, `reflection`, `rating`, `recommend`) VALUES ('{$name}', '{$genre}', '{$reflection}', '{$rating}', '{$recommend}')";
+	$query = "INSERT INTO `readings` (`name`, `genre`, `reflection`, `rating`, `recommend`, `created`, `modified`) VALUES ('{$name}', '{$genre}', '{$reflection}', '{$rating}', '{$recommend}', NOW(), NOW())";
 	if (mysqli_query($conn, $query)) {
       echo '<meta http-equiv="refresh" content="0; url=index.php" />';
       die();
@@ -39,9 +39,25 @@ function delRecord($id) {
   }
 }
 
+function editRecord($id, $name, $genre, $reflection, $rating, $recommend) {
+	$conn = connectDb();
+	$query = "UPDATE `readings` SET `name` = '{$name}', `genre` = '{$genre}', `reflection` = '{$reflection}', `rating` = '{$rating}', `recommend` = '{$recommend}', `modified` = NOW() WHERE `id` = '{$id}'";
+	if (mysqli_query($conn, $query)) {
+      echo '<meta http-equiv="refresh" content="0; url=index.php" />';
+      die();
+  }
+}
+
 function getRatingData() {
 	$conn = connectDb();
 	$query = "SELECT rating, COUNT('rating') FROM `readings` GROUP BY rating";
+	$result = mysqli_query($conn, $query);
+	return mysqli_fetch_all($result);
+}
+
+function getRecommendData() {
+	$conn = connectDb();
+	$query = "SELECT recommend, COUNT('recommend') FROM `readings` GROUP BY recommend";
 	$result = mysqli_query($conn, $query);
 	return mysqli_fetch_all($result);
 }
