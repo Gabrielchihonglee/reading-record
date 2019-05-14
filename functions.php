@@ -1,4 +1,7 @@
 <?php
+if (!file_exists("../config.php")) {
+	exit("../config.php not found, you should define DB_HOST, DB_USER, DB_PASSWORD and DB_NAME in ../config.php.");
+}
 include_once("../config.php");
 
 function connectDb() {
@@ -34,8 +37,8 @@ function delRecord($id) {
 	$query = "DELETE FROM `readings` WHERE `id` = '{$id}'";
 	$result = mysqli_query($conn, $query);
 	if (mysqli_query($conn, $query)) {
-      echo '<meta http-equiv="refresh" content="0; url=index.php" />';
-      die();
+      	echo '<meta http-equiv="refresh" content="0; url=index.php" />';
+      	die();
   }
 }
 
@@ -43,8 +46,8 @@ function editRecord($id, $name, $genre, $reflection, $rating, $recommend) {
 	$conn = connectDb();
 	$query = "UPDATE `readings` SET `name` = '{$name}', `genre` = '{$genre}', `reflection` = '{$reflection}', `rating` = '{$rating}', `recommend` = '{$recommend}', `modified` = NOW() WHERE `id` = '{$id}'";
 	if (mysqli_query($conn, $query)) {
-      echo '<meta http-equiv="refresh" content="0; url=index.php" />';
-      die();
+      	echo '<meta http-equiv="refresh" content="0; url=index.php" />';
+      	die();
   }
 }
 
@@ -58,6 +61,13 @@ function getRatingData() {
 function getRecommendData() {
 	$conn = connectDb();
 	$query = "SELECT recommend, COUNT('recommend') FROM `readings` GROUP BY recommend";
+	$result = mysqli_query($conn, $query);
+	return mysqli_fetch_all($result);
+}
+
+function getGenreData() {
+	$conn = connectDb();
+	$query = "SELECT genre, COUNT('genre') FROM `readings` GROUP BY genre";
 	$result = mysqli_query($conn, $query);
 	return mysqli_fetch_all($result);
 }

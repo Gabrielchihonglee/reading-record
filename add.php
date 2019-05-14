@@ -1,4 +1,6 @@
 <?php
+$page = "add";
+define("CONFIG_NO_DIRECT", "");
 include_once("functions.php");
 if (isset($_POST["submit"])) {
 	// form validation
@@ -40,20 +42,7 @@ if (isset($_POST["submit"])) {
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<header>
-		<div class="sitename">
-			<a href="index.php">My Reading Record</a>
-		</div>
-		<nav>
-			<ul>
-				<li><a href="index.php">Home</a></li>
-				<li><a href="stats.php">Stats</a></li>
-			</ul>
-		</nav>
-		<div class="search">
-			<span class="search-input"><input type="text" name="search" placeholder="search">
-		</div>
-	</header>
+    <?php include("components/header.php"); ?>
 	<div class="container">
 		<h1>Add record</h1>
 		<?php
@@ -73,34 +62,14 @@ if (isset($_POST["submit"])) {
 				?>">
 			  <label for="genre">Genre</label>
 				<select name="genre" id="genre">
-				  <option value=""></option>
-					<option value="Action and adventure"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Action and adventure") { echo ' selected'; } ?>>Action and adventure</option>
-					<option value="Art"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Art") { echo ' selected'; } ?>>Art</option>
-					<option value="Autobiography"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Autobiography") { echo ' selected'; } ?>>Autobiography</option>
-					<option value="Biography"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Biography") { echo ' selected'; } ?>>Biography</option>
-					<option value="Book review"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Book review") { echo ' selected'; } ?>>Book review</option>
-					<option value="Cookbook"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Cookbook") { echo ' selected'; } ?>>Cookbook</option>
-					<option value="Comic book"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Comic book") { echo ' selected'; } ?>>Comic book</option>
-					<option value="Diary"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Diary") { echo ' selected'; } ?>>Diary</option>
-					<option value="Dictionary"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Dictionary") { echo ' selected'; } ?>>Dictionary</option>
-					<option value="Crime"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Crime") { echo ' selected'; } ?>>Crime</option>
-					<option value="Encyclopedia"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Encyclopedia") { echo ' selected'; } ?>>Encyclopedia</option>
-					<option value="Drama"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Drama") { echo ' selected'; } ?>>Drama</option>
-					<option value="Fairytale"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Fairytale") { echo ' selected'; } ?>>Fairytale</option>
-					<option value="Health"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Health") { echo ' selected'; } ?>>Health</option>
-					<option value="Fantasy"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Fantasy") { echo ' selected'; } ?>>Fantasy</option>
-					<option value="History"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "History") { echo ' selected'; } ?>>History</option>
-					<option value="Journal"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Journal") { echo ' selected'; } ?>>Journal</option>
-					<option value="Math"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Math") { echo ' selected'; } ?>>Math</option>
-					<option value="Horror"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Horror") { echo ' selected'; } ?>>Horror</option>
-					<option value="Mystery"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Mystery") { echo ' selected'; } ?>>Mystery</option>
-					<option value="Textbook"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Textbook") { echo ' selected'; } ?>>Textbook</option>
-					<option value="Poetry"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Poetry") { echo ' selected'; } ?>>Poetry</option>
-					<option value="Review"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Review") { echo ' selected'; } ?>>Review</option>
-					<option value="Science"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Science") { echo ' selected'; } ?>>Science</option>
-					<option value="Romance"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Romance") { echo ' selected'; } ?>>Romance</option>
-					<option value="Travel"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Travel") { echo ' selected'; } ?>>Travel</option>
-					<option value="Thriller"<?php if (isset($_POST["genre"]) && $_POST["genre"] == "Thriller") { echo ' selected'; } ?>>Thriller</option>
+				  <option value="-1"></option>
+				  <?php
+				  foreach($genres as $key => $value):
+				  ?>
+				  <option value="<?= $key ?>"<?php if (isset($_POST["genre"]) && $_POST["genre"] == $key) { echo ' selected'; } ?>><?= $value ?></option>
+				  <?php
+			  	  endforeach;
+				  ?>
 				</select>
 				<label for="reflection">My reflection</label>
 			  <textarea name="reflection" id="reflection" cols="70" rows="6"><?php
@@ -128,9 +97,7 @@ if (isset($_POST["submit"])) {
 			</form>
 		</div>
 	</div>
-	<footer>
-		<div class="container">Created by Gabriel (Lee Chi Hong) for SCC130 Term 3 Assessment @ Lancaster University.</div>
-	</footer>
+	<?php include("components/footer.php"); ?>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>

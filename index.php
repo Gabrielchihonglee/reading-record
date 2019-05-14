@@ -1,4 +1,6 @@
 <?php
+$page = "index";
+define("CONFIG_NO_DIRECT", "");
 include_once("functions.php");
 ?>
 <!doctype html>
@@ -9,20 +11,7 @@ include_once("functions.php");
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<header>
-		<div class="sitename">
-			<a href="index.php">My Reading Record</a>
-		</div>
-		<nav>
-			<ul>
-				<li><b><a href="index.php">Home</a></b></li>
-				<li><a href="stats.php">Stats</a></li>
-			</ul>
-		</nav>
-		<div class="search">
-			<span class="search-input"><input type="text" name="search" placeholder="search">
-		</div>
-	</header>
+    <?php include("components/header.php"); ?>
 	<div class="container">
 		<a class="add-record" href="add.php">Add record</a>
 		<?php
@@ -48,7 +37,11 @@ include_once("functions.php");
 				?>
 				<tr>
 					<td><?= $record[1]; ?></td>
-					<td><?= $record[2]; ?></td>
+					<td><?php
+                        if ($record[2] != -1) {
+                            echo $genres[$record[2]];
+                        }
+                    ?></td>
 					<td><?= $record[3]; ?></td>
 					<td class="rating">
 						<?php if ($record[4] != -1) {?>
@@ -80,6 +73,7 @@ include_once("functions.php");
 				}
 				?>
 			</tbody>
+            <!--
 			<tfoot>
 				<tr>
 					<td>Book Name</td>
@@ -90,13 +84,12 @@ include_once("functions.php");
 					<td>Actions</td>
 				</tr>
 			</tfoot>
+            -->
 		</table>
 		<?php
 		}
 		?>
 	</div>
-	<footer>
-		<div class="container">Created by Gabriel (Lee Chi Hong) for SCC130 Term 3 Assessment @ Lancaster University.</div>
-	</footer>
+	<?php include("components/footer.php"); ?>
 </body>
 </html>

@@ -1,4 +1,6 @@
 <?php
+$page = "view";
+define("CONFIG_NO_DIRECT", "");
 include_once("functions.php");
 $record = getRecord($_GET["id"])[0];
 ?>
@@ -10,20 +12,7 @@ $record = getRecord($_GET["id"])[0];
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<header>
-		<div class="sitename">
-			<a href="index.php">My Reading Record</a>
-		</div>
-		<nav>
-			<ul>
-				<li><a href="index.php">Home</a></li>
-				<li><a href="stats.php">Stats</a></li>
-			</ul>
-		</nav>
-		<div class="search">
-			<span class="search-input"><input type="text" name="search" placeholder="search">
-		</div>
-	</header>
+    <?php include("components/header.php"); ?>
 	<div class="container">
 		<h1>View record</h1>
 		<?php
@@ -36,7 +25,11 @@ $record = getRecord($_GET["id"])[0];
 			<span class="field-key">Book name</span>
 			<span class="field-value"><?= $record[1] ?></span><span class="view-id">(id: <?= $record[0] ?>)</span>
 			<span class="field-key">Genre</span>
-			<span class="field-value"><?= $record[2] ?></span>
+			<span class="field-value"><?php
+                if ($record[2] != -1) {
+                    echo $genres[$record[2]];
+                }
+            ?></span>
 			<span class="field-key">My reflection</span>
 			<span class="field-value"><?= $record[3] ?></span>
 			<span class="field-key">Rating</span>
@@ -68,9 +61,7 @@ $record = getRecord($_GET["id"])[0];
 			<span class="field-value"><?= $record[7] ?></span>
 		</div>
 	</div>
-	<footer>
-		<div class="container">Created by Gabriel (Lee Chi Hong) for SCC130 Term 3 Assessment @ Lancaster University.</div>
-	</footer>
+	<?php include("components/footer.php"); ?>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>

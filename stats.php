@@ -1,4 +1,6 @@
 <?php
+$page = "stats";
+define("CONFIG_NO_DIRECT", "");
 include_once("functions.php");
 ?>
 <!doctype html>
@@ -9,20 +11,7 @@ include_once("functions.php");
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<header>
-		<div class="sitename">
-			<a href="index.php">My Reading Record</a>
-		</div>
-		<nav>
-			<ul>
-				<li><a href="index.php">Home</a></li>
-				<li><b><a href="stats.php">Stats</a></b></li>
-			</ul>
-		</nav>
-		<div class="search">
-			<span class="search-input"><input type="text" name="search" placeholder="search">
-		</div>
-	</header>
+    <?php include("components/header.php"); ?>
 	<div class="container">
 		<h1>Stats</h1>
 		<?php
@@ -35,12 +24,11 @@ include_once("functions.php");
 			<div class="charts">
 				<div id="ratingChart"></div>
 				<div id="recommendChart"></div>
+				<div id="genreChart"></div>
 			</div>
 		</div>
 	</div>
-	<footer>
-		<div class="container">Created by Gabriel (Lee Chi Hong) for SCC130 Term 3 Assessment @ Lancaster University.</div>
-	</footer>
+	<?php include("components/footer.php"); ?>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 	google.charts.load('current', {'packages':['corechart']});
@@ -105,6 +93,32 @@ include_once("functions.php");
 		};
 		var recommendChart = new google.visualization.PieChart(document.getElementById('recommendChart'));
 		recommendChart.draw(recommendChartData, recommendChartOptions);
+
+        <?php
+		$genre_data = getGenreData();
+		$genre_data_print = "";
+		foreach ($genre_data as $data) {
+            if ($data[0] == -1) {
+                $genre_data_print .= "['N/A',{$data[1]}], ";
+            } else {
+                $genre_data_print .= "['{$genres[$data[0]]}',{$data[1]}], ";
+            }
+		}
+		$genre_data_print = substr($genre_data_print, 0, -2);;
+		?>
+		// Create the data table.
+		var genre_chart_data = new google.visualization.DataTable();
+		genre_chart_data.addColumn('string', 'Genre');
+		genre_chart_data.addColumn('number', '# of books read');
+		genre_chart_data.addRows([<?= $genre_data_print ?>]);
+		var genre_chart_options = {
+			'title': 'Genres',
+			width: '100%',
+			height: 700,
+  		    colors: ['#b7cbff', '#8cabff','#5b87ff', '#3269ff'],
+		};
+		var genre_chart = new google.visualization.ColumnChart(document.getElementById('genreChart'));
+		genre_chart.draw(genre_chart_data, genre_chart_options);
  	}
 	</script>
 </body>
