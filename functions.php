@@ -18,9 +18,17 @@ function addRecord($name, $genre, $reflection, $rating, $recommend) {
   }
 }
 
-function listRecords() {
+function getRecordCount() {
 	$conn = connectDb();
-	$query = "SELECT * FROM `readings`";
+	$query = "SELECT COUNt(*) FROM `readings`";
+	$result = mysqli_query($conn, $query);
+	return mysqli_fetch_all($result)[0][0];
+}
+
+function listRecords($page) {
+	$offset = $page * 10 - 10;
+	$conn = connectDb();
+	$query = "SELECT * FROM `readings` ORDER BY `id` LIMIT 10 OFFSET {$offset}";
 	$result = mysqli_query($conn, $query);
 	return mysqli_fetch_all($result);
 }

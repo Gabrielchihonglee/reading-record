@@ -2,6 +2,8 @@
 $page = "index";
 define("CONFIG_NO_DIRECT", "");
 include_once("functions.php");
+
+$total_count = getRecordCount();
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,7 +17,12 @@ include_once("functions.php");
 	<div class="container">
 		<a class="add-record" href="add.php">Add record</a>
 		<?php
-		$records = listRecords();
+        if (isset($_GET["page"])) {
+            $page = $_GET["page"];
+        } else {
+            $page = 1;
+        }
+		$records = listRecords($page);
 		if (empty($records)) {
 			echo '<div class="no-record-msg">No reading records found.</div>';
 		} else {
@@ -73,22 +80,23 @@ include_once("functions.php");
 				}
 				?>
 			</tbody>
-            <!--
-			<tfoot>
-				<tr>
-					<td>Book Name</td>
-					<td>Genre</td>
-					<td>My Reflection</td>
-					<td>Rating</td>
-					<td>Recommended</td>
-					<td>Actions</td>
-				</tr>
-			</tfoot>
-            -->
 		</table>
 		<?php
 		}
 		?>
+        <div class="pagination">
+            <span><?= $page * 10 - 9 ?> - <?= ($total_count <= $page * 10)?$total_count:$page * 10 ?> of <?= $total_count ?> records</span>
+            <a href="<?php if ($page > 1) { echo "?page=". ($page - 1); } ?>" class="left<?php
+            if ($page == 1) {
+                echo " disabled";
+            }
+            ?>"><</a>
+            <a href="<?php if ($total_count > $page * 10) { echo "?page=". ($page + 1); } ?>" class="right<?php
+            if ($total_count <= $page * 10) {
+                echo " disabled";
+            }
+            ?>">></a>
+        </div>
 	</div>
 	<?php include("components/footer.php"); ?>
 </body>

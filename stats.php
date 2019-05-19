@@ -116,6 +116,9 @@ include_once("functions.php");
 			width: '100%',
 			height: 700,
   		    colors: ['#b7cbff', '#8cabff','#5b87ff', '#3269ff'],
+            vAxis: {
+                format: 'decimal',
+            },
 		};
 		var genre_chart = new google.visualization.ColumnChart(document.getElementById('genreChart'));
 		genre_chart.draw(genre_chart_data, genre_chart_options);
